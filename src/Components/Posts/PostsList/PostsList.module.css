@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .list {
+    width: 80%;
+    padding: 13px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .postItem {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  

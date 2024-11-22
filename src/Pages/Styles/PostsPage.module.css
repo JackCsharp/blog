@@ -1,0 +1,20 @@
+.container{
+    max-width: "60px";
+    margin: "0 auto";
+    padding: "20px";
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addPostButton{
+    float: left;
+}
+.headerText{
+    font-size: 50px;
+}
+.loader{
+    text-align: "center";
+    margin: "20px 0";
+}

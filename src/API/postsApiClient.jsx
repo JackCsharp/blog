@@ -6,7 +6,7 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   getAllPosts: () => {
-    return apiClient.get("/Post/posts");
+    return apiClient.post("/Post/posts/filter", "{}");
   },
 
   /**
@@ -45,6 +45,21 @@ const postsApiClient = {
   deletePost: (id) => {
     return apiClient.delete(`/Post/posts/${id}`);
   },
+
+  getComments: (postId) => {
+    return apiClient.get(`/Comment/comments/${postId}`)
+  },
+  addComment: (postId, comment) => {
+    return apiClient.post(`/Comment/comments/${postId}`, comment);
+  },
+
+  getCategories: () => {
+    return apiClient.get(`/Category/categories`);
+  },
+  getHashTags: () => {
+    return apiClient.get(`/Hashtag/hashtags`);
+  },
+
 };
 
 export default postsApiClient;
