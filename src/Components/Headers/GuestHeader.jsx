@@ -7,7 +7,7 @@ const GuestHeader = () => {
   return (
     <header>
       <Menu mode="horizontal">
-        <Menu.Item onClick={() => navigate("/")} key="home">
+        <Menu.Item onClick={() => navigate("/home")} key="home">
           Home
         </Menu.Item>
         <Menu.Item onClick={() => navigate("/login")} key="login">

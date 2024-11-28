@@ -6,15 +6,22 @@
 .header{
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-.addPostButton{
-    float: left;
+    justify-content: space-between;
 }
 .headerText{
     font-size: 50px;
+    text-align: center;
 }
 .loader{
     text-align: "center";
     margin: "20px 0";
+}
+.searchInput{
+    margin-left: 40px;
+    width: 320px;
+    float: left;
+}
+.addPostButton{
+    float: right;
+    margin-right: 40px;
 }

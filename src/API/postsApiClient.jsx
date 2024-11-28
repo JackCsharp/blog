@@ -6,7 +6,7 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   getAllPosts: () => {
-    return apiClient.post("/Post/posts/filter", "{}");
+    return apiClient.post("/posts/filter", "{}");
   },
 
   /**
@@ -15,7 +15,7 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   getPostById: (id) => {
-    return apiClient.get(`/Post/posts/${id}`);
+    return apiClient.get(`/posts/${id}`);
   },
 
   /**
@@ -24,7 +24,10 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   createPost: (postData) => {
-    return apiClient.post("/Post/posts", postData);
+    return apiClient.post("/posts", postData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }});
   },
 
   /**
@@ -34,7 +37,7 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   updatePost: (id, postData) => {
-    return apiClient.put(`/Post/posts/${id}`, postData);
+    return apiClient.put(`/posts/${id}`, postData);
   },
 
   /**
@@ -43,21 +46,21 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   deletePost: (id) => {
-    return apiClient.delete(`/Post/posts/${id}`);
+    return apiClient.delete(`/posts/${id}`);
   },
 
   getComments: (postId) => {
-    return apiClient.get(`/Comment/comments/${postId}`)
+    return apiClient.get(`/comments/${postId}`)
   },
   addComment: (postId, comment) => {
-    return apiClient.post(`/Comment/comments/${postId}`, comment);
+    return apiClient.post(`/comments/${postId}`, comment);
   },
 
   getCategories: () => {
-    return apiClient.get(`/Category/categories`);
+    return apiClient.get(`/categories`);
   },
   getHashTags: () => {
-    return apiClient.get(`/Hashtag/hashtags`);
+    return apiClient.get(`/hashtags`);
   },
 
 };

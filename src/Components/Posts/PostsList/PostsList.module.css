@@ -2,13 +2,15 @@
     display: flex;
     gap: 20px;
     padding: 20px;
+    height: 84vh; 
+    overflow: visible;
   }
   
   .list {
     width: 80%;
     padding: 13px;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 8px;overflow-y: auto;
   }
   
   .postItem {

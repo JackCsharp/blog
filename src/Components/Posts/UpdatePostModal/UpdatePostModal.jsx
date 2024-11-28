@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Button, Select, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import styles from "./AddPostModal.module.css";
+import styles from "./UpdatePostModal.module.css";
 import postsApiClient from "../../../API/postsApiClient";
 
 const { Option } = Select;
 
-const AddPostModal = ({ visible, onClose, onSubmit }) => {
+const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
   const [form] = Form.useForm();
   const [categories, setCategories] = useState([]);
   const [hashTags, setHashTags] = useState([]);
-  const [fileList, setFileList] = useState([]);
+  const [initialFileList, setInitialFileList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,20 +23,44 @@ const AddPostModal = ({ visible, onClose, onSubmit }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (post) {
+      form.setFieldsValue({
+        title: post.title,
+        description: post.description,
+        categoryId: post.categoryId,
+        hashtagIds: post.hashtagIds,
+        photo: null, // Оставить пустым, если пользователь не загрузил новое фото
+      });
+
+      // Если в посте уже есть фото, добавляем его как файл по умолчанию
+      if (post.photoUrl) {
+        setInitialFileList([
+          {
+            uid: "-1",
+            name: "Existing Image",
+            status: "done",
+            url: post.photoUrl,
+          },
+        ]);
+      }
+    }
+  }, [post, form]);
+
   const handleFinish = (values) => {
-    // Append file info to the form values
     const formData = {
-      ...values
+      ...values,
+      id: post?.id, // Добавляем ID для обновления поста
     };
-    console.log("Submitted Data:", formData);
+    console.log("Updated Data:", formData);
     onSubmit(formData);
     form.resetFields();
-    setFileList([]);
+    setInitialFileList([]);
   };
 
   return (
     <Modal
-      title="Add New Post"
+      title="Update Post"
       visible={visible}
       onCancel={onClose}
       footer={null}
@@ -80,7 +104,7 @@ const AddPostModal = ({ visible, onClose, onSubmit }) => {
           name="hashtagIds"
           rules={[{ required: true, message: "Please select the hash tags" }]}
         >
-          <Select placeholder="Select hashtag" mode="multiple">
+          <Select placeholder="Select hashtags" mode="multiple">
             {hashTags?.map((hashTag) => (
               <Option key={hashTag.id} value={hashTag.id}>
                 {hashTag.name}
@@ -89,30 +113,33 @@ const AddPostModal = ({ visible, onClose, onSubmit }) => {
           </Select>
         </Form.Item>
         <Form.Item
-  label="Upload Image"
-  name="photo"
-  rules={[{ required: true, message: "Please upload an image" }]}
->
-  <Upload
-    listType="picture"
-    beforeUpload={() => false}
-    maxCount={1}
-    onChange={(info) => {
-      const file = info.fileList[0]?.originFileObj || null;
-      form.setFieldsValue({ photo: file });
-    }}
-  >
-    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-  </Upload>
-</Form.Item>
-
+          label="Upload Image"
+          name="photo"
+        >
+          <Upload
+            listType="picture"
+            beforeUpload={() => false}
+            maxCount={1}
+            defaultFileList={initialFileList}
+            onChange={(info) => {
+              const file = info.fileList[0]?.originFileObj || null;
+              form.setFieldsValue({ photo: file });
+            }}
+          >
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </Form.Item>
 
         <div className={styles.footer}>
           <Button onClick={onClose} className={styles.cancelButton}>
             Cancel
           </Button>
-          <Button type="primary" htmlType="submit" className={styles.submitButton}>
-            Submit
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={styles.submitButton}
+          >
+            Update
           </Button>
         </div>
       </Form>
@@ -120,5 +147,4 @@ const AddPostModal = ({ visible, onClose, onSubmit }) => {
   );
 };
 
-export default AddPostModal;
-
+export default UpdatePostModal;

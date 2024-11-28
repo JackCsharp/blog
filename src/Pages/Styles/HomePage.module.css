@@ -1,0 +1,65 @@
+.homepage {
+    background-color: #f9f9f9;
+  }
+  
+  .header {
+    background: url('https://source.unsplash.com/1600x900/?travel') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .headerContent {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 3rem !important;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .ctaButton {
+    margin-top: 20px;
+  }
+  
+  .mainContent {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .featuresList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .featuresList li {
+    font-size: 1rem;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .featuresList li::before {
+    content: "✔";
+    color: #4caf50;
+    margin-right: 10px;
+  }
+  
+  .footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+  }
+  

@@ -60,12 +60,9 @@ const PostsPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Button onClick={() => setModalVisible(true)} className={styles.addPostButton}>Add Post</Button>
-        <h1 className={styles.headerText}>Posts</h1>
-      </div>
 
-      {/* Search Input */}
-      <div className={styles.searchContainer}>
+
+      <div>
         <Input
           placeholder="Search by hashtag..."
           value={searchTerm}
@@ -73,6 +70,13 @@ const PostsPage = () => {
           className={styles.searchInput}
         />
       </div>
+      <h1 className={styles.headerText}>Posts</h1>
+
+      <Button onClick={() => setModalVisible(true)} className={styles.addPostButton}>Add Post</Button>
+
+      </div>
+
+      
 
       {loading && (
         <div className={styles.loader}>

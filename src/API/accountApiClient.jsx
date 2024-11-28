@@ -35,6 +35,21 @@ const authApiClient = {
   logout: () => {
     localStorage.removeItem("jwtToken");
   },
+  /**
+ * Register a new user.
+ * @param {Object} values - Registration data (firstName, lastName, username, email, phone, password).
+ * @returns {Promise<void>}
+ */
+register: async (values) => {
+  try {
+    const response = await apiClient.post("/Auth/register", values);
+    return response.data; // Вернётся информация о пользователе или пустой ответ
+  } catch (error) {
+    console.error("Registration error:", error);
+    throw error;
+  }
+},
+
 };
 
 export default authApiClient;

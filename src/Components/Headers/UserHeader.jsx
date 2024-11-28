@@ -16,7 +16,6 @@ const UserHeader = () => {
   return (
   <header>
     <Menu mode="horizontal">
-      <Menu.Item onClick={()=>navigate("/home")} key="home">Home</Menu.Item>
       <Menu.Item onClick={()=>navigate("/profile")} key="profile">Profile</Menu.Item>
       <Menu.Item onClick={()=>navigate("/posts")} key="posts">Posts</Menu.Item>
       <Menu.Item onClick={()=>logOut()} key="logout">Log out</Menu.Item>

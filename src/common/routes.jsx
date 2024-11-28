@@ -7,10 +7,6 @@ import PostsPage from "../Pages/PostsPage";
 
 export const userRoutes = [
   {
-    path: "/home",
-    element: <HomePage />,
-  },
-  {
     path: "/profile",
     element: <ProfilePage />,
   },
