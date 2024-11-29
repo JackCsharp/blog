@@ -57,7 +57,7 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
     <Modal
       title="Update Post"
       visible={visible}
-      onCancel={onClose}
+      onCancel={e=>onClose(e)}
       footer={null}
       className={styles.modal}
     >

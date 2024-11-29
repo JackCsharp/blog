@@ -43,7 +43,10 @@ const postsApiClient = {
    * @returns {Promise} - Server response.
    */
   updatePost: (postData) => {
-    return apiClient.patch(`/posts`, postData);
+    return apiClient.patch(`/posts`, postData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }});
   },
 
   /**

@@ -16,7 +16,12 @@ const Post = ({ post, fetchPosts }) => {
   const DESCRIPTION_LIMIT = 300;
 
   const truncateText = (text, limit) => {
-    return text.length > limit ? `${text.substring(0, limit)}` : text;
+    try{
+      return text.length > limit ? `${text.substring(0, limit)}` : text;
+    }
+    catch(err){
+      console.log("something went wrong", err);
+    } 
   };
 
   useEffect(() => {
@@ -53,6 +58,8 @@ const Post = ({ post, fetchPosts }) => {
     } catch (error) {
       console.error("Error updating post:", error);
     }
+    fetchPosts();
+
   };
 
   const showReadMoreModal = (e) => {
@@ -110,7 +117,7 @@ const Post = ({ post, fetchPosts }) => {
             <>
               <EditOutlined
                 className={styles.editIcon}
-                onClick={openUpdateModal}
+                onClick={e=>openUpdateModal(e)}
               />{" "}
               <DeleteOutlined
                 className={styles.deleteIcon}
