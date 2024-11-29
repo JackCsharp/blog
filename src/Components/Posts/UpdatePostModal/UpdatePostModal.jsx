@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Button, Select, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Modal, Form, Input, Button, Select, message } from "antd";
 import styles from "./UpdatePostModal.module.css";
 import postsApiClient from "../../../API/postsApiClient";
 
@@ -10,7 +9,6 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
   const [form] = Form.useForm();
   const [categories, setCategories] = useState([]);
   const [hashTags, setHashTags] = useState([]);
-  const [initialFileList, setInitialFileList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +17,6 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
       setCategories(categories.data);
       setHashTags(hashTags.data);
     };
-
     fetchData();
   }, []);
 
@@ -28,34 +25,32 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
       form.setFieldsValue({
         title: post.title,
         description: post.description,
-        categoryId: post.categoryId,
-        hashtagIds: post.hashtagIds,
-        photo: null, // Оставить пустым, если пользователь не загрузил новое фото
+        categoryId: post.category.id,
+        hashtags: post.hashtags.map((tag) => tag.id),
       });
-
-      // Если в посте уже есть фото, добавляем его как файл по умолчанию
-      if (post.photoUrl) {
-        setInitialFileList([
-          {
-            uid: "-1",
-            name: "Existing Image",
-            status: "done",
-            url: post.photoUrl,
-          },
-        ]);
-      }
     }
   }, [post, form]);
 
-  const handleFinish = (values) => {
+  const handleFinish = async (values) => {
     const formData = {
-      ...values,
-      id: post?.id, // Добавляем ID для обновления поста
+      id: post?.id,
+      title: values.title,
+      description: values.description,
+      categoryId: values.categoryId,
+      hashtags: values.hashtags.map((id) =>
+        hashTags.find((tag) => tag.id === id)
+      ),
     };
-    console.log("Updated Data:", formData);
-    onSubmit(formData);
-    form.resetFields();
-    setInitialFileList([]);
+
+    try {
+      const response = await postsApiClient.updatePost(formData);
+      message.success("Post updated successfully!");
+      onSubmit(response.data);
+      form.resetFields();
+    } catch (error) {
+      console.error("Error updating post:", error);
+      message.error("Failed to update post. Please try again.");
+    }
   };
 
   return (
@@ -100,9 +95,9 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
           </Select>
         </Form.Item>
         <Form.Item
-          label="HashTag"
-          name="hashtagIds"
-          rules={[{ required: true, message: "Please select the hash tags" }]}
+          label="Hashtags"
+          name="hashtags"
+          rules={[{ required: true, message: "Please select the hashtags" }]}
         >
           <Select placeholder="Select hashtags" mode="multiple">
             {hashTags?.map((hashTag) => (
@@ -112,24 +107,6 @@ const UpdatePostModal = ({ visible, onClose, onSubmit, post }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          label="Upload Image"
-          name="photo"
-        >
-          <Upload
-            listType="picture"
-            beforeUpload={() => false}
-            maxCount={1}
-            defaultFileList={initialFileList}
-            onChange={(info) => {
-              const file = info.fileList[0]?.originFileObj || null;
-              form.setFieldsValue({ photo: file });
-            }}
-          >
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-          </Upload>
-        </Form.Item>
-
         <div className={styles.footer}>
           <Button onClick={onClose} className={styles.cancelButton}>
             Cancel

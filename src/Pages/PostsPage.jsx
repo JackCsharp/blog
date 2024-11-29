@@ -95,7 +95,7 @@ const PostsPage = () => {
       )}
 
       {!loading && !error && (
-        <PostsList posts={filteredPosts} />
+        <PostsList posts={filteredPosts} fetchPosts={fetchPosts}/>
       )}
 
       <AddPostModal

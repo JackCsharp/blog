@@ -8,7 +8,13 @@ const postsApiClient = {
   getAllPosts: () => {
     return apiClient.post("/posts/filter", "{}");
   },
-
+  /**
+     * Fetch users posts.
+     * @returns {Promise} - Server response.
+     */
+  getMyPosts: () => {
+    return apiClient.get("/posts/mine");
+  },
   /**
    * Fetch a single post by ID.
    * @param {number | string} id - Post ID.
@@ -36,8 +42,8 @@ const postsApiClient = {
    * @param {Object} postData - Updated post data.
    * @returns {Promise} - Server response.
    */
-  updatePost: (id, postData) => {
-    return apiClient.put(`/posts/${id}`, postData);
+  updatePost: (postData) => {
+    return apiClient.patch(`/posts`, postData);
   },
 
   /**

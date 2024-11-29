@@ -13,7 +13,7 @@ const LoginPage = () => {
     const response = await accountApiClient.login(values);
     if(response){
       setIsAuthorized(true);
-      navigate("/home");
+      navigate("/posts");
     }
   };
   const onFinishFailed = (errorInfo) => {

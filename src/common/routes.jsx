@@ -1,14 +1,14 @@
 import LoginPage from "../Pages/LoginPage";
 import HomePage from "../Pages/HomePage";
 import RegistrationPage from "../Pages/RegistrationPage";
-import ProfilePage from "../Pages/ProfilePage";
 import ErrorPage from "../Pages/ErrorPage";
 import PostsPage from "../Pages/PostsPage";
+import MyPosts from "../Pages/MyPostsPage";
 
 export const userRoutes = [
   {
-    path: "/profile",
-    element: <ProfilePage />,
+    path: "/myposts",
+    element: <MyPosts />,
   },
   {
     path: "/posts",

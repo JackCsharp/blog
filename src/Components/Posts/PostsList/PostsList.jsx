@@ -11,7 +11,7 @@ import { DeleteOutlined } from "@ant-design/icons";
  * @param {Array} posts - Array of post objects.
  * @returns {JSX.Element}
  */
-const PostsList = ({ posts, className }) => {
+const PostsList = ({ fetchPosts, posts, className }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [commentsLoading, setCommentsLoading] = useState(false);
 
@@ -30,7 +30,6 @@ const PostsList = ({ posts, className }) => {
       setCommentsLoading(false);
     }
   };
-
   const handlePostClick = (post) => {
       if(selectedPost?.id===post.id){
         setSelectedPost(null);
@@ -70,7 +69,7 @@ const PostsList = ({ posts, className }) => {
         dataSource={posts}
         renderItem={(post) => (
           <List.Item onClick={() => handlePostClick(post)} className={styles.postItem}>
-            <Post post={post} />
+            <Post fetchPosts={fetchPosts}  post={post} />
           </List.Item>
         )}
         className={styles.list}
