@@ -25,6 +25,7 @@ const PostsPage = () => {
       const response = await postsApiClient.getAllPosts();
       setPosts(response.data); // Assuming the API returns an array of posts
       setFilteredPosts(response.data); // Initialize filteredPosts with all posts
+      console.log(response.data)
     } catch (err) {
       setError("Failed to fetch posts. Please try again later.");
       console.error(err);

@@ -42,7 +42,7 @@ const PostDetails = ({ post, loading, fetchComments }) => {
           <Input value={userComment.content} onChange={(e)=>setUserComment({...userComment, content: e.target.value})} placeholder="Write your comment"/>
           <Button onClick={()=>addComment()}>Add</Button>
         </Flex>
-        <CommentsList comments={post.comments} />
+        <CommentsList post={post} comments={post.comments} />
       </div>
     </div>
   );
